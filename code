@@ -13,7 +13,11 @@ library(plotly)
 data<-iris
 # Define UI for application that draws a histogram
 ui <- fluidPage(
-  theme = shinytheme("cosmo"),
+ # shinythemes::themeSelector(),
+  #theme = shinytheme("darkly"),
+  theme = bslib::bs_theme(
+    bootswatch = "darkly"
+  ),
   tags$head(tags$style('
    body {
       font-family: Montserrat; 
@@ -72,12 +76,12 @@ server <- function(input, output) {
   })
   
   output$reactable1<-renderReactable({
-    reactable(data1(),minRows = 8,defaultPageSize = 8,outlined=T,filterable = T,
+    reactable(data1(),theme=darkly(),minRows = 8,defaultPageSize = 8,outlined=T,filterable = T,
               bordered = TRUE,)
   })
   output$datatable1<-renderDataTable({
     datatable(
-      data1(), extensions = 'Buttons', options = list(pageLength = 5,
+      data1(), style= "bootstrap4",extensions = 'Buttons', options = list(pageLength = 5,
         dom = 'Bfrtip',
         buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
       ), filter = "top"
